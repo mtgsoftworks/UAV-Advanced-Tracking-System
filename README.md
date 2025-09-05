@@ -377,6 +377,14 @@ This project is licensed under the **MIT License**. See the [LICENSE](LICENSE) f
 - **PyTorch** framework
 - Academic research contributions
 
+## 👨‍💻 **Author**
+
+**Mesut Taha Güven** - *Lead Developer & Researcher*
+- GitHub: [@mtgsoftworks](https://github.com/mtgsoftworks)
+- Email: mtg@duck.com
+
+*Specialized in computer vision, UAV systems, and real-time tracking algorithms. Passionate about combining academic research with practical applications.*
+
 ## 📊 **Changelog**
 
 ### v2.0 (Latest)
