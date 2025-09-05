@@ -6,240 +6,240 @@
 [![PyTorch](https://img.shields.io/badge/PyTorch-2.7+-orange.svg)](https://pytorch.org)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
-**UAV Advanced Tracking System**, İHA/drone tespiti ve takibi için geliştirilmiş gelişmiş bir bilgisayarlı görü sistemidir. YOLOv8s deep learning modeli ve OpenCV tracker algoritmalarını kullanarak gerçek zamanlı UAV takibi gerçekleştirir. Sistem, akademik araştırma bulgularına dayalı optimize edilmiş parametreler ve PID kontrol sistemi ile donatılmıştır.
+**UAV Advanced Tracking System** is an advanced computer vision system developed for UAV/drone detection and tracking. It performs real-time UAV tracking using YOLOv8s deep learning model and OpenCV tracker algorithms. The system is equipped with optimized parameters based on academic research findings and a PID control system.
 
-## 🎯 Özellikler
+## 🎯 Features
 
-### 🔥 **Dual Tracking Yaklaşımı**
-- **YOLO-only Tracking**: Her frame'de YOLO detection + Kalman Filter
-- **OpenCV Tracker**: 7 farklı classical tracking algoritması (CSRT, KCF, MOSSE, MIL, BOOSTING, MEDIANFLOW, TLD)
+### 🔥 **Dual Tracking Approach**
+- **YOLO-only Tracking**: YOLO detection + Kalman Filter in every frame
+- **OpenCV Tracker**: 7 different classical tracking algorithms (CSRT, KCF, MOSSE, MIL, BOOSTING, MEDIANFLOW, TLD)
 
-### 🧠 **Yapay Zeka Entegrasyonu**
-- **YOLOv8s** custom model desteği
-- **GPU/CPU** otomatik optimizasyonu
-- **Confidence threshold** akademik optimizasyonu (%20 ana, %15 tracking)
-- **NMS IOU threshold** ayarlanabilir (0.4 optimized)
+### 🧠 **AI Integration**
+- **YOLOv8s** custom model support
+- **GPU/CPU** automatic optimization
+- **Confidence threshold** academic optimization (20% main, 15% tracking)
+- **NMS IOU threshold** adjustable (0.4 optimized)
 
-### 🎮 **Gelişmiş Kontrol Sistemi**
-- **PID Controller** dinamik kazanç ayarı
+### 🎮 **Advanced Control System**
+- **PID Controller** dynamic gain adjustment
 - **Kalman Filter** smooth tracking
-- **ROI tarama** sistemi (4 bölge optimized)
-- **Adaptive threshold** (uzak/yakın mesafe)
+- **ROI scanning** system (4 region optimized)
+- **Adaptive threshold** (far/near distance)
 
 ### 📊 **Performance Monitoring**
-- Gerçek zamanlı **FPS** göstergesi
-- **Confidence tracking** ve istatistikler
-- **Bbox history** ve smooth filtering
-- **Detection timeout** kontrolü
+- Real-time **FPS** indicator
+- **Confidence tracking** and statistics
+- **Bbox history** and smooth filtering
+- **Detection timeout** control
 
-## 🚀 Hızlı Başlangıç
+## 🚀 Quick Start
 
-### 📋 Gereksinimler
+### 📋 Requirements
 
 - **Python 3.10+**
-- **Windows 10/11** (test edildi)
-- **CUDA compatible GPU** (opsiyonel, hızlandırma için)
-- **Webcam veya video dosyası**
+- **Windows 10/11** (tested)
+- **CUDA compatible GPU** (optional, for acceleration)
+- **Webcam or video file**
 
-### ⚡ Kurulum
+### ⚡ Installation
 
-1. **Repo'yu klonlayın:**
+1. **Clone the repository:**
 ```bash
 git clone https://github.com/yourusername/uav-tracking-system.git
 cd uav-tracking-system
 ```
 
-2. **Sanal ortam oluşturun:**
+2. **Create virtual environment:**
 ```bash
 python -m venv uav_env
-# Windows için:
+# For Windows:
 .\uav_env\Scripts\activate
-# Linux/Mac için:
+# For Linux/Mac:
 source uav_env/bin/activate
 ```
 
-3. **Bağımlılıkları kurun:**
+3. **Install dependencies:**
 ```bash
 pip install --upgrade pip
 pip install opencv-python torch ultralytics numpy opencv-contrib-python
 ```
 
-4. **Alternatif - Requirements ile kurulum:**
+4. **Alternative - Installation with requirements:**
 ```bash
 pip install -r requirements.txt
 ```
 
-### 🎬 Kullanım
+### 🎬 Usage
 
-#### **YOLO-only Tracker (Önerilen):**
+#### **YOLO-only Tracker (Recommended):**
 ```bash
 python uav_tracking_yolo.py
 ```
 
-#### **OpenCV Tracker Versiyonu:**
+#### **OpenCV Tracker Version:**
 ```bash
 python uav_tracking_opencv_trackers.py
 ```
 
-### 📹 Video Yapılandırması
+### 📹 Video Configuration
 
-Video dosyanızı `Sahneler/` klasörüne yerleştirin:
+Place your video files in the `Scenes/` folder:
 ```
 UAV/
-├── Sahneler/
-│   ├── sahne1.mp4
-│   ├── sahne2.mp4
+├── Scenes/
+│   ├── scene1.mp4
+│   ├── scene2.mp4
 │   └── ...
 ├── best.pt (YOLO model)
 └── ...
 ```
 
-## 🔧 Teknik Detaylar
+## 🔧 Technical Details
 
-### 🎯 **Optimal Threshold Değerleri**
+### 🎯 **Optimal Threshold Values**
 
-Akademik araştırma bulgularına göre optimize edilmiş threshold değerleri:
+Threshold values optimized according to academic research findings:
 
-| Parameter | Değer | Açıklama |
-|-----------|-------|----------|
-| **Ana Detection Confidence** | 20% | İlk tespit için optimal |
-| **Tracking Confidence** | 15% | Takip sürecinde daha hassas |
+| Parameter | Value | Description |
+|-----------|-------|-------------|
+| **Main Detection Confidence** | 20% | Optimal for initial detection |
+| **Tracking Confidence** | 15% | More sensitive during tracking |
 | **IOU Threshold (NMS)** | 0.4 | Non-Maximum Suppression |
-| **Minimum Bbox Boyutu** | %2.5 frame | Küçük UAV'lar için |
-| **Target Area** | %1.5 frame | PID kontrol referansı |
+| **Minimum Bbox Size** | 2.5% frame | For small UAVs |
+| **Target Area** | 1.5% frame | PID control reference |
 
-### 📊 **ROI Tarama Sistemi**
+### 📊 **ROI Scanning System**
 
-4 büyük ROI bölgesi ile sistematik tarama:
+Systematic scanning with 4 large ROI regions:
 ```
 ┌─────────┬─────────┐
 │  ROI 1  │  ROI 2  │
-│ (Sol-Üst)│(Sağ-Üst) │
+│ (Top-L) │ (Top-R) │
 ├─────────┼─────────┤
 │  ROI 3  │  ROI 4  │
-│ (Sol-Alt)│(Sağ-Alt) │
+│ (Bot-L) │ (Bot-R) │
 └─────────┴─────────┘
 ```
 
-- **ROI Boyutu**: 640x360 (overlap ile)
-- **Tarama Hızı**: 12 frame/ROI
-- **Toplam Tarama**: ~1.6 saniye/cycle
+- **ROI Size**: 640x360 (with overlap)
+- **Scanning Speed**: 12 frame/ROI
+- **Total Scan**: ~1.6 seconds/cycle
 
-### 🎮 **PID Kontrol Sistemi**
+### 🎮 **PID Control System**
 
 Adaptive PID gains based on distance:
 
-| Mesafe | Kp | Ki | Kd | Kf | Kullanım |
-|--------|----|----|----|----|----------|
-| **Far** | 300 | 35 | 80 | 1480 | Uzak hedefler |
-| **Close** | 200 | 50 | 120 | 1480 | Yakın hedefler |
+| Distance | Kp | Ki | Kd | Kf | Usage |
+|----------|----|----|----|----|-------|
+| **Far** | 300 | 35 | 80 | 1480 | Distant targets |
+| **Close** | 200 | 50 | 120 | 1480 | Near targets |
 
 ### 🧠 **Kalman Filter Configuration**
 
 8-state Kalman filter (x, y, w, h, vx, vy, vw, vh):
-- **Process Noise**: 5e-3 (düşük noise, stable tracking)
-- **Measurement Noise**: 1e-1 (YOLO detection güvenilirliği)
+- **Process Noise**: 5e-3 (low noise, stable tracking)
+- **Measurement Noise**: 1e-1 (YOLO detection reliability)
 - **Prediction Model**: Constant velocity
 
-## 📈 **OpenCV Tracker Karşılaştırması**
+## 📈 **OpenCV Tracker Comparison**
 
-[LearnOpenCV](https://learnopencv.com/object-tracking-using-opencv-cpp-python/) referansına göre tracker performansı:
+Based on [LearnOpenCV](https://learnopencv.com/object-tracking-using-opencv-cpp-python/) reference, tracker performance:
 
-| Tracker | Doğruluk | Hız | UAV Uygunluk | Önerilen |
-|---------|----------|-----|--------------|----------|
-| **CSRT** | ⭐⭐⭐⭐⭐ | ⭐⭐ | 🟢 En iyi | ✅ Hassas tracking |
-| **KCF** | ⭐⭐⭐⭐ | ⭐⭐⭐⭐ | 🟢 İyi | ✅ Genel amaçlı |
-| **MOSSE** | ⭐⭐⭐ | ⭐⭐⭐⭐⭐ | 🟡 Hız odaklı | ⚡ Real-time |
-| **MIL** | ⭐⭐⭐ | ⭐⭐⭐ | 🟡 Temel | 📚 Basit |
-| **TLD** | ⭐⭐⭐⭐ | ⭐⭐ | 🟡 Oklüzyon | 🔍 Experimental |
-| **MEDIANFLOW** | ⭐⭐⭐ | ⭐⭐⭐ | 🔴 Uygun değil | ❌ Slow motion only |
-| **BOOSTING** | ⭐⭐ | ⭐⭐ | 🔴 Önerilmez | ❌ Outdated |
+| Tracker | Accuracy | Speed | UAV Suitability | Recommended |
+|---------|----------|-------|-----------------|-------------|
+| **CSRT** | ⭐⭐⭐⭐⭐ | ⭐⭐ | 🟢 Best | ✅ Precise tracking |
+| **KCF** | ⭐⭐⭐⭐ | ⭐⭐⭐⭐ | 🟢 Good | ✅ General purpose |
+| **MOSSE** | ⭐⭐⭐ | ⭐⭐⭐⭐⭐ | 🟡 Speed focused | ⚡ Real-time |
+| **MIL** | ⭐⭐⭐ | ⭐⭐⭐ | 🟡 Basic | 📚 Simple |
+| **TLD** | ⭐⭐⭐⭐ | ⭐⭐ | 🟡 Occlusion | 🔍 Experimental |
+| **MEDIANFLOW** | ⭐⭐⭐ | ⭐⭐⭐ | 🔴 Not suitable | ❌ Slow motion only |
+| **BOOSTING** | ⭐⭐ | ⭐⭐ | 🔴 Not recommended | ❌ Outdated |
 
-## 🎨 **Kullanıcı Arayüzü**
+## 🎨 **User Interface**
 
-### 🎯 **YOLO-only Versiyon**
-- **Yeşil kutu**: UAV tracking aktif
-- **Sarı alan**: Hedef bölge
-- **Kırmızı çizgi**: Merkez-hedef bağlantısı
-- **Kontrol paneli**: PID değerleri gerçek zamanlı
-- **ROI göstergesi**: Tarama modu
+### 🎯 **YOLO-only Version**
+- **Green box**: UAV tracking active
+- **Yellow area**: Target region
+- **Red line**: Center-target connection
+- **Control panel**: PID values real-time
+- **ROI indicator**: Scanning mode
 
-### 🎮 **Kontrol Tuşları**
-- `Q`: Çıkış
+### 🎮 **Control Keys**
+- `Q`: Exit
 - `R`: Tracking reset
-- `S`: Screenshot (sadece YOLO versiyonu)
+- `S`: Screenshot (YOLO version only)
 
-### 📊 **Bilgi Göstergeleri**
-- **FPS**: Gerçek zamanlı performans
-- **Confidence**: Detection güveni
+### 📊 **Information Indicators**
+- **FPS**: Real-time performance
+- **Confidence**: Detection confidence
 - **PID Values**: Aileron, Elevator, Throttle
-- **Target Area**: Mevcut/hedef alan oranı
+- **Target Area**: Current/target area ratio
 
-## 🔬 **Akademik Optimizasyonlar**
+## 🔬 **Academic Optimizations**
 
 ### 📚 **Confidence Threshold Research**
 
-Literatür taraması sonuçları:
-- **YOLOv8 Default**: 0.4 (çok yüksek, UAV kaçırılır)
-- **LMWP-YOLO Study**: 0.25 önerilen
-- **UAV Detection Papers**: 0.2-0.25 arası optimal
-- **Bu Proje**: 0.2 (ana), 0.15 (tracking)
+Literature review results:
+- **YOLOv8 Default**: 0.4 (too high, UAVs missed)
+- **LMWP-YOLO Study**: 0.25 recommended
+- **UAV Detection Papers**: 0.2-0.25 range optimal
+- **This Project**: 0.2 (main), 0.15 (tracking)
 
 ### 🎯 **ROI Optimization**
 
-- **Eski**: 6 küçük ROI (3x2 grid) → Karışık tarama
-- **Yeni**: 4 büyük ROI (2x2 grid) → %40 daha verimli
+- **Old**: 6 small ROI (3x2 grid) → Confusing scanning
+- **New**: 4 large ROI (2x2 grid) → 40% more efficient
 - **Overlap**: 100px → Edge case handling
-- **Frame/ROI**: 15 → 12 frame (%20 hızlandırma)
+- **Frame/ROI**: 15 → 12 frame (20% speedup)
 
 ## 🚀 **Performance Benchmarks**
 
-### 💻 **Test Sistemi**
+### 💻 **Test System**
 - **CPU**: Intel i7 series
 - **GPU**: CUDA compatible (optional)
-- **RAM**: 8GB+ önerilen
+- **RAM**: 8GB+ recommended
 - **Video**: 1280x720 @ 30fps
 
-### 📊 **Performans Sonuçları**
+### 📊 **Performance Results**
 
-| Mod | FPS | CPU Usage | GPU Usage | Detection Rate |
-|-----|-----|-----------|-----------|----------------|
+| Mode | FPS | CPU Usage | GPU Usage | Detection Rate |
+|------|-----|-----------|-----------|----------------|
 | **YOLO-only** | 15-25 | 60-80% | 40-60% | 95%+ |
 | **CSRT Tracker** | 20-30 | 40-60% | 20-40% | 85%+ |
 | **MOSSE Tracker** | 35-45 | 30-50% | 15-30% | 80%+ |
 
 ### 🎯 **Detection Accuracy**
 
-Test videoları üzerinde:
-- **Confidence Range**: %31 - %94
-- **Average Confidence**: %76
-- **Detection Success**: %92
+On test videos:
+- **Confidence Range**: 31% - 94%
+- **Average Confidence**: 76%
+- **Detection Success**: 92%
 - **False Positive**: <5%
 - **Tracking Loss**: <8%
 
-## 🗂️ **Proje Yapısı**
+## 🗂️ **Project Structure**
 
 ```
 UAV/
-├── 📁 Sahneler/              # Video dosyaları
-│   ├── sahne1.mp4
-│   └── sahne2.mp4
-├── 📁 uav_env/               # Python sanal ortam
-├── 🐍 uav_tracking_yolo.py   # Ana YOLO tracker
+├── 📁 Scenes/              # Video files
+│   ├── scene1.mp4
+│   └── scene2.mp4
+├── 📁 uav_env/             # Python virtual environment
+├── 🐍 uav_tracking_yolo.py   # Main YOLO tracker
 ├── 🐍 uav_tracking_opencv_trackers.py  # OpenCV trackers
-├── 🐍 test_trackers.py       # Tracker test scripti
+├── 🐍 test_trackers.py       # Tracker test script
 ├── 🧠 best.pt               # YOLOv8s custom model
 ├── 📋 requirements.txt      # Python dependencies
-└── 📖 README.md             # Bu dosya
+└── 📖 README.md             # This file
 ```
 
-## 🔧 **Gelişmiş Konfigürasyon**
+## 🔧 **Advanced Configuration**
 
-### ⚙️ **YOLO Model Ayarları**
+### ⚙️ **YOLO Model Settings**
 
 ```python
-# Model parametreleri
-CONF_THRESHOLD = 0.2        # Ana detection
+# Model parameters
+CONF_THRESHOLD = 0.2        # Main detection
 TRACK_CONF_THRESHOLD = 0.15 # Tracking detection
 IOU_THRESHOLD = 0.4         # NMS threshold
 MAX_DET = 100              # Maximum detections
@@ -248,7 +248,7 @@ MAX_DET = 100              # Maximum detections
 ### 🎮 **PID Tuning**
 
 ```python
-# Uzak mesafe gains
+# Far distance gains
 gains_far = {
     'Kp': 300,    # Proportional gain
     'Ki': 35,     # Integral gain  
@@ -256,100 +256,100 @@ gains_far = {
     'Kf': 1480    # Feedforward
 }
 
-# Yakın mesafe gains
+# Near distance gains
 gains_close = {
-    'Kp': 200,    # Daha yumuşak kontrol
-    'Ki': 50,     # Daha yüksek integral
-    'Kd': 120,    # Daha yüksek derivative
-    'Kf': 1480    # Sabit feedforward
+    'Kp': 200,    # Softer control
+    'Ki': 50,     # Higher integral
+    'Kd': 120,    # Higher derivative
+    'Kf': 1480    # Constant feedforward
 }
 ```
 
 ### 🔍 **ROI Customization**
 
 ```python
-# ROI boyut ayarları
+# ROI size settings
 roi_width = frame_width // 2   # 640px default
 roi_height = frame_height // 2 # 360px default
-overlap = 100                  # Overlap piksel
+overlap = 100                  # Overlap pixels
 ROI_SCAN_FRAMES = 12          # Frame/ROI
 ```
 
-## 🐛 **Troubleshooting**
+## 🛠 **Troubleshooting**
 
-### ❌ **Yaygın Hatalar**
+### ❌ **Common Errors**
 
 1. **"CUDA out of memory"**
    ```bash
-   # CPU moduna geç
+   # Switch to CPU mode
    device = "cpu"
    ```
 
 2. **"TrackerCSRT_create not found"**
    ```bash
-   # OpenCV-contrib kur
+   # Install OpenCV-contrib
    pip install opencv-contrib-python
    ```
 
-3. **"Video dosyası açılamadı"**
+3. **"Video file cannot be opened"**
    ```bash
-   # Video yolunu kontrol et
-   VIDEO_PATH = "Sahneler/sahne1.mp4"
+   # Check video path
+   VIDEO_PATH = "Scenes/scene1.mp4"
    ```
 
 ### 🔧 **Performance Tuning**
 
 1. **GPU Memory Optimization**:
    ```python
-   torch.cuda.empty_cache()  # Memory temizle
+   torch.cuda.empty_cache()  # Clear memory
    ```
 
 2. **Frame Rate Optimization**:
    ```python
-   cv2.waitKey(1)  # Display delay azalt
+   cv2.waitKey(1)  # Reduce display delay
    ```
 
 3. **Detection Frequency**:
    ```python
-   # Her 2. frame'de detect et
+   # Detect every 2nd frame
    if frame_count % 2 == 0:
        detect()
    ```
 
-## 🤝 **Katkıda Bulunma**
+## 🤝 **Contributing**
 
-1. **Fork** edin
-2. **Feature branch** oluşturun: `git checkout -b amazing-feature`
-3. **Commit** yapın: `git commit -m 'Add amazing feature'`
-4. **Push** edin: `git push origin amazing-feature`
-5. **Pull Request** açın
+1. **Fork** it
+2. Create **feature branch**: `git checkout -b amazing-feature`
+3. **Commit** changes: `git commit -m 'Add amazing feature'`
+4. **Push** to branch: `git push origin amazing-feature`
+5. Open **Pull Request**
 
-### 📝 **Development Setup**
+### 🛠 **Development Setup**
 
 ```bash
-# Development bağımlılıkları
+# Development dependencies
 pip install pytest black flake8 mypy
 ```
 
 ### 🧪 **Testing**
 
 ```bash
-# Tracker testleri
+# Tracker tests
 python test_trackers.py
 
-# Unit testler (gelecek)
+# Unit tests (future)
 pytest tests/
 ```
 
-## 📚 **Referanslar ve Kaynaklar**
+## 📚 **References and Resources**
 
-### 📖 **Akademik Kaynaklar**
+### 📖 **Academic Sources**
 - [LearnOpenCV Object Tracking Guide](https://learnopencv.com/object-tracking-using-opencv-cpp-python/)
 - YOLOv8 Official Documentation
 - OpenCV Tracking Algorithms Documentation
 - UAV Detection Research Papers
 
-### 🔗 **Teknik Dokümantasyon**
+### 🔗 **Technical Documentation**
 - [Ultralytics YOLOv8](https://github.com/ultralytics/ultralytics)
 - [OpenCV Python Tutorials](https://docs.opencv.org/4.x/d6/d00/tutorial_py_root.html)
 - [PyTorch Documentation](https://pytorch.org/docs/stable/index.html)
@@ -359,40 +359,40 @@ pytest tests/
 - UAV Detection Papers: 0.2-0.25 optimal range
 - Real-world deployment findings
 
-## 📞 **İletişim**
+## 📞 **Contact**
 
 - **Email**: your.email@domain.com
 - **GitHub**: [@yourusername](https://github.com/yourusername)
 - **LinkedIn**: [Your Profile](https://linkedin.com/in/yourprofile)
 
-## 📄 **Lisans**
+## 📄 **License**
 
-Bu proje **MIT Lisansı** altında lisanslanmıştır. Detaylar için [LICENSE](LICENSE) dosyasına bakın.
+This project is licensed under the **MIT License**. See the [LICENSE](LICENSE) file for details.
 
-## 🏆 **Teşekkürler**
+## 🏆 **Acknowledgments**
 
-- **YOLOv8** ekibine
-- **OpenCV** topluluğuna  
-- **LearnOpenCV** eğitim materyalleri için
-- **PyTorch** framework'ü için
-- Akademik araştırma katkıları için
+- **YOLOv8** team
+- **OpenCV** community  
+- **LearnOpenCV** for educational materials
+- **PyTorch** framework
+- Academic research contributions
 
 ## 📊 **Changelog**
 
-### v2.0 (Son)
+### v2.0 (Latest)
 - ✅ Dual tracking system implementation
 - ✅ Academic optimization integration
 - ✅ OpenCV tracker fallback mechanism
 - ✅ Improved ROI scanning
 - ✅ Enhanced PID control
 
-### v1.0 (İlk)
+### v1.0 (Initial)
 - ✅ Basic YOLO detection
 - ✅ Simple tracking implementation
 - ✅ ROI scanning prototype
 
 ---
 
-**⭐ Projeyi beğendiyseniz yıldız vermeyi unutmayın!**
+**⭐ Don't forget to star the project if you liked it!**
 
-**🚁 UAV Advanced Tracking System - Where AI Meets Precision** 
+**🚁 UAV Advanced Tracking System - Where AI Meets Precision**
